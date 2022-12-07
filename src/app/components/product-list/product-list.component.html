@@ -1,1 +1,7 @@
 <p>product-list works!</p>
+<ul>
+  <li *ngFor="let product of productsList">
+      <app-product-item [name]="product.name" [price]="product.price" [imageUrl]="product.url"></app-product-item>
+  </li>
+</ul>
+<app-product-item></app-product-item>
