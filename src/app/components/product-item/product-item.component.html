@@ -1,5 +1,7 @@
-<div>
+<div class="product-container">
   <p>{{ name }}</p>
   <p>{{ price }}</p>
-  <img [src]="imageUrl"/>
+  <a routerLink="/details/{{ id }}">
+    <img [src]="imageUrl" class="product-image"/>
+  </a>
 </div>
