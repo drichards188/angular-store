@@ -8,7 +8,8 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { ProductItemDetailComponent } from './components/product-item-detail/product-item-detail.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { HeaderComponent } from './layout/header/header.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HeaderComponent } from './layout/header/header.component';
     ProductItemComponent,
     ProductItemDetailComponent,
     ProductListComponent,
+    NavBarComponent,
     HeaderComponent
   ],
   imports: [
