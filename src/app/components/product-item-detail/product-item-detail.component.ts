@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ProductsService} from "../../services/products.service";
 import {Product} from "../../product";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-product-item-detail',
@@ -11,7 +12,7 @@ import {Product} from "../../product";
 export class ProductItemDetailComponent implements OnInit{
   productId: number = 0;
   selectedProduct: Product = {id:0, name: 'placeholder', description:'desc placeholder', price:0, url:''};
-  constructor(private route: ActivatedRoute, private productsService: ProductsService){}
+  constructor(private route: ActivatedRoute, private productsService: ProductsService, private cartService: CartService){}
 
   ngOnInit(): void {
     // @ts-ignore
@@ -25,5 +26,9 @@ export class ProductItemDetailComponent implements OnInit{
     } else {
       alert('product not found');
     }
+  }
+
+  removeFromCart(): void {
+    this.cartService.removeProduct(this.selectedProduct.id);
   }
 }

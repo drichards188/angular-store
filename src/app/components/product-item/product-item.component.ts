@@ -43,4 +43,8 @@ export class ProductItemComponent implements OnInit {
     }
   }
 
+  removeFromCart(): void {
+    this.cartService.removeProduct(this.product.id);
+  }
+
 }

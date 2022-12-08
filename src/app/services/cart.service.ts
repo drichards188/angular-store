@@ -24,7 +24,7 @@ export class CartService {
       "description": "Listen to stuff!",
       "quantity": 1
     }
-    ];
+  ];
 
   constructor() {
   }
@@ -34,14 +34,21 @@ export class CartService {
   }
 
   addProduct(newProduct: Product): boolean {
-    const cartNewProduct = {...newProduct, quantity: 1}
-    this.cart.push(cartNewProduct);
-    return true;
+    const found = this.cart.find(product => product.id === newProduct.id);
+
+    if (found) {
+      const foundIndex = this.cart.findIndex(product => product.id === newProduct.id);
+      this.cart[foundIndex].quantity += 1;
+      return true;
+    } else {
+      const cartNewProduct = {...newProduct, quantity: 1}
+      this.cart.push(cartNewProduct);
+      return true;
+    }
   }
 
   removeProduct(productId: number): boolean {
-    const newCart = this.cart.find(product => product.id !== productId);
-    alert(JSON.stringify(newCart));
+    this.cart = this.cart.filter(product => product.id !== productId);
     return true;
   }
 

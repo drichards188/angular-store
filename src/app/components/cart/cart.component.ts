@@ -14,6 +14,8 @@ export class CartComponent implements OnInit{
   fullName: string = '';
   address: string = '';
   cardNumber: string = '';
+  showConfirmation: boolean = false;
+  orderTotal: number = 0;
 
   constructor(private cartService: CartService) {
   }
@@ -23,8 +25,7 @@ export class CartComponent implements OnInit{
   }
 
   onSubmit() {
-    alert(`fullname: ${this.fullName}, address: ${this.address}, cardNumber: ${this.cardNumber}`)
+    this.cartService.clearCart();
+    this.showConfirmation = true;
   }
-
-
 }
