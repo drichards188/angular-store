@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CartService} from "../../services/cart.service";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product} from "../../product";
 import {CartProduct} from "../../cartProduct";
+import {ProductsService} from "../../services/products.service";
 
 @Component({
   selector: 'app-product-item',
@@ -13,11 +13,12 @@ export class ProductItemComponent implements OnInit {
   @Input() product: Product = {id: 0, name: '', price: 0, description: '', url: ''};
   @Input() cartProduct: CartProduct = {id: 0, name: '', price: 0, description: '', url: '', quantity: 0};
   @Input() isCart: boolean = false;
-  productQuantity: number = 0;
+  @Output() signalUpdateEvent = new EventEmitter<boolean>();
+  productQuantity: number = 1;
 
   newQuantity: number = 0;
 
-  constructor(private cartService: CartService) {
+  constructor(private productService: ProductsService) {
   }
 
   ngOnInit(): void {
@@ -29,22 +30,23 @@ export class ProductItemComponent implements OnInit {
 
   onSubmit() {
     alert(`quantity: ${this.productQuantity}`);
-  }
-
-  changeQuantity(): void {
-    alert(this.newQuantity);
-    this.productQuantity = this.newQuantity;
-  }
-
-  addToCart(): void {
-    const resp = this.cartService.addProduct(this.product);
+    const resp = this.productService.addProduct(this.product, this.productQuantity);
     if (!resp) {
       alert('problem adding product to cart');
     }
+    this.signalUpdateEvent.emit(true);
+  }
+
+  addToCart(): void {
+    const resp = this.productService.addProduct(this.product, this.newQuantity);
+    if (!resp) {
+      alert('problem adding product to cart');
+    }
+    this.signalUpdateEvent.emit(true);
   }
 
   removeFromCart(): void {
-    this.cartService.removeProduct(this.product.id);
+    this.productService.removeProduct(this.product.id);
+    this.signalUpdateEvent.emit(true);
   }
-
 }

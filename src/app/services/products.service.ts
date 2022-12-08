@@ -1,12 +1,39 @@
 import { Injectable } from '@angular/core';
+import {CartProduct} from "../cartProduct";
+import {Observable} from "rxjs";
+import {Product} from "../product";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ProductsService {
+  total: number = 0;
 
-  constructor() { }
+  cart: CartProduct[] = [
+    {
+      "id": 1,
+      "name": "Book",
+      "price": 9.99,
+      "url": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "description": "You can read it!",
+      "quantity": 2
+    },
+    {
+      "id": 2,
+      "name": "Headphones",
+      "price": 249.99,
+      "url": "https://images.unsplash.com/photo-1583394838336-acd977736f90?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "description": "Listen to stuff!",
+      "quantity": 1
+    }
+  ];
+
+  constructor() {
+    this.cart.forEach((product => {
+      this.total = this.total += (product.price * product.quantity);
+    }));
+  }
 
   getProducts() {
     return [
@@ -53,5 +80,51 @@ export class ProductsService {
         "description": "Wear it with style!"
       }
     ]
+  }
+
+  getCart(): CartProduct[] {
+    return this.cart;
+  }
+
+  addProduct(newProduct: Product, quantity: number): boolean {
+    const found = this.cart.find(product => product.id === newProduct.id);
+
+    if (found) {
+      const foundIndex = this.cart.findIndex(product => product.id === newProduct.id);
+      const oldQuantity = this.cart[foundIndex].quantity;
+      if (typeof quantity === "string") {
+        const total = parseInt(quantity) + oldQuantity;
+        this.cart[foundIndex].quantity = total;
+        alert(`new product quantity is supposed to be ${total} and is ${this.cart[foundIndex].quantity}`)
+        this.updateTotalPrice();
+        return true;
+      }
+      const total = oldQuantity + quantity;
+      this.updateTotalPrice();
+      return true;
+    } else {
+      const cartNewProduct = {...newProduct, quantity: quantity}
+      this.cart.push(cartNewProduct);
+      this.updateTotalPrice();
+      return true;
+    }
+  }
+
+  removeProduct(productId: number): boolean {
+    this.cart = this.cart.filter(product => product.id !== productId);
+    return true;
+  }
+
+  clearCart(): boolean {
+    this.cart = [];
+    return true;
+  }
+
+  updateTotalPrice(): void {
+    let total = 0;
+    this.cart.forEach(product => total += (product.price * product.quantity));
+    this.total = total;
+    alert(`local total is $${total}`)
+    alert(`total is $${this.total}`)
   }
 }

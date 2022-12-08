@@ -1,14 +1,15 @@
-<p>product-item-detail works!</p>
-<p>the id is {{productId}}</p>
 <div class="detail-container">
   <p class="detail-item">{{ selectedProduct.name }}</p>
   <p class="detail-item">{{ selectedProduct.description }}</p>
   <p class="detail-item">{{ selectedProduct.price }}</p>
   <img [src]="selectedProduct.url" class="product-image"/>
-  <select class="select-input">
-    <option>Quantity</option>
-    <option>1</option>
-    <option>2</option>
+  <select class="select-input" [value]="0">
+    <option value="0">Quantity</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
   </select>
   <button>Add to cart</button>
   <button (click)="removeFromCart()">Remove from cart</button>
