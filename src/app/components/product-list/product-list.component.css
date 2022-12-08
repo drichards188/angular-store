@@ -10,3 +10,7 @@
   display: flex;
   justify-content: center;
 }
+
+button:active {
+  background-color: rebeccapurple;
+}

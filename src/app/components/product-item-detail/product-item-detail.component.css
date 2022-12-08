@@ -4,7 +4,7 @@ img {
 }
 
 .select-input {
-  width: 108px; 
+  width: 108px;
   margin-bottom: 8px;
 }
 
@@ -22,4 +22,8 @@ img {
 
 .back-link {
   margin-top: 8px;
+}
+
+button:active {
+  background-color: rebeccapurple;
 }
