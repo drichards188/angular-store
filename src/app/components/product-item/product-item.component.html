@@ -4,5 +4,10 @@
   <a routerLink="/details/{{ product.id }}">
     <img [src]="product.url" class="product-image"/>
   </a>
-  <button (click)="addToCart()">Add to cart</button>
+  <button *ngIf="!isCart" (click)="addToCart()">Add to cart</button>
+
+  <p *ngIf="isCart">Quantity</p>
+  <input *ngIf="isCart" type="number" (change)="onSubmit()" name="username" required minlength="1" value="{{ productQuantity}}"
+         [(ngModel)]="productQuantity">
+
 </div>

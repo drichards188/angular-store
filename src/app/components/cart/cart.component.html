@@ -1,3 +1,14 @@
-<div *ngFor="let product of cart" class="product-container">
-  <app-product-item [product]="product" class="product-index"></app-product-item>
+<div class="cart-container">
+  <div *ngFor="let product of cart" class="cart-item-details">
+    <app-product-item [cartProduct]="product" [isCart]="true" class="product-index"></app-product-item>
+  </div>
+  <form #form="ngForm" (ngSubmit)="onSubmit()" class="cart-panel">
+    <p>Full Name</p>
+      <input type="text" name="fullName" required minlength="5" appForbiddenName="username" [(ngModel)]="fullName">
+    <p>Address</p>
+    <input type="text" name="address" required minlength="10" [(ngModel)]="address">
+    <p>Credit card number</p>
+    <input type="text" name="cardNumber" required minlength="10" [(ngModel)]="cardNumber">
+    <button type="submit" [disabled]="form.invalid">Check Out</button>
+  </form>
 </div>

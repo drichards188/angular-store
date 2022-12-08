@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CartService} from "../../services/cart.service";
 import {Product} from "../../product";
+import {CartProduct} from "../../cartProduct";
 
 @Component({
   selector: 'app-cart',
@@ -8,7 +9,11 @@ import {Product} from "../../product";
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit{
-  cart: Product[] = [];
+  cart: CartProduct[] = [];
+
+  fullName: string = '';
+  address: string = '';
+  cardNumber: string = '';
 
   constructor(private cartService: CartService) {
   }
@@ -16,4 +21,10 @@ export class CartComponent implements OnInit{
   ngOnInit() {
     this.cart = this.cartService.getCart();
   }
+
+  onSubmit() {
+    alert(`fullname: ${this.fullName}, address: ${this.address}, cardNumber: ${this.cardNumber}`)
+  }
+
+
 }

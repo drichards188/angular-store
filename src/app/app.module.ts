@@ -10,6 +10,7 @@ import { ProductItemDetailComponent } from './components/product-item-detail/pro
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HeaderComponent } from './components/header/header.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,10 +23,11 @@ import { HeaderComponent } from './components/header/header.component';
     NavBarComponent,
     HeaderComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
