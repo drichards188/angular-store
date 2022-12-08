@@ -16,7 +16,7 @@ export class ProductItemComponent implements OnInit {
   @Output() signalUpdateEvent = new EventEmitter<boolean>();
   productQuantity: number = 1;
 
-  newQuantity: number = 0;
+  newQuantity: number = 1;
 
   constructor(private productService: ProductsService) {
   }
@@ -28,20 +28,8 @@ export class ProductItemComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    alert(`quantity: ${this.productQuantity}`);
-    const resp = this.productService.addProduct(this.product, this.productQuantity);
-    if (!resp) {
-      alert('problem adding product to cart');
-    }
-    this.signalUpdateEvent.emit(true);
-  }
-
-  addToCart(): void {
-    const resp = this.productService.addProduct(this.product, this.newQuantity);
-    if (!resp) {
-      alert('problem adding product to cart');
-    }
+  addToCart(isUpdate: boolean): void {
+    this.productService.addProduct(this.product, this.newQuantity, isUpdate);
     this.signalUpdateEvent.emit(true);
   }
 

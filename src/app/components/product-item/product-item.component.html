@@ -1,23 +1,22 @@
 <div class="product-container">
   <p>{{ product.name }}</p>
   <p>{{ product.price }}</p>
+  <p *ngIf="isCart">Quantity: {{cartProduct.quantity}}</p>
   <a routerLink="/details/{{ product.id }}">
     <img [src]="product.url" class="product-image"/>
   </a>
 
   <select  class="select-input" [(ngModel)]="newQuantity">
-    <option value=0>Quantity</option>
+    <option value=1>Quantity</option>
     <option value=1>1</option>
     <option value=2>2</option>
     <option value=3>3</option>
     <option value=4>4</option>
     <option value=5>5</option>
   </select>
-  <button (click)="addToCart()">Add to cart</button>
-  <button (click)="removeFromCart()">Remove from cart</button>
+  <button *ngIf="!isCart" (click)="addToCart(false)">Add to cart</button>
+  <button *ngIf="isCart" (click)="addToCart(true)">Update</button>
 
-  <p *ngIf="isCart">Quantity</p>
-  <input *ngIf="isCart" type="number" (change)="onSubmit()" name="username" required minlength="1" value="{{ productQuantity}}"
-         [(ngModel)]="productQuantity">
+  <button (click)="removeFromCart()">Remove from cart</button>
 
 </div>

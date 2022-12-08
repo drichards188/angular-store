@@ -86,27 +86,31 @@ export class ProductsService {
     return this.cart;
   }
 
-  addProduct(newProduct: Product, quantity: number): boolean {
+  addProduct(newProduct: Product, quantity: number, isUpdate: boolean) {
     const found = this.cart.find(product => product.id === newProduct.id);
 
     if (found) {
-      const foundIndex = this.cart.findIndex(product => product.id === newProduct.id);
-      const oldQuantity = this.cart[foundIndex].quantity;
-      if (typeof quantity === "string") {
-        const total = parseInt(quantity) + oldQuantity;
-        this.cart[foundIndex].quantity = total;
-        alert(`new product quantity is supposed to be ${total} and is ${this.cart[foundIndex].quantity}`)
+        const foundIndex = this.cart.findIndex(product => product.id === newProduct.id);
+        const oldQuantity = this.cart[foundIndex].quantity;
+        if (typeof quantity === "string") {
+          if (!isUpdate) {
+            const total = parseInt(quantity) + oldQuantity;
+            this.cart[foundIndex].quantity = total;
+          } else {
+            this.cart[foundIndex].quantity = parseInt(quantity);
+          }
+          this.updateTotalPrice();
+          return;
+        }
+        this.cart[foundIndex].quantity = quantity;
         this.updateTotalPrice();
-        return true;
-      }
-      const total = oldQuantity + quantity;
-      this.updateTotalPrice();
-      return true;
+        return;
+
     } else {
       const cartNewProduct = {...newProduct, quantity: quantity}
       this.cart.push(cartNewProduct);
       this.updateTotalPrice();
-      return true;
+      return;
     }
   }
 
@@ -121,10 +125,9 @@ export class ProductsService {
   }
 
   updateTotalPrice(): void {
-    let total = 0;
+    let total: number = 0;
     this.cart.forEach(product => total += (product.price * product.quantity));
-    this.total = total;
-    alert(`local total is $${total}`)
-    alert(`total is $${this.total}`)
+    let finalTotal = total.toFixed(2)
+    this.total = parseFloat(finalTotal);
   }
 }
