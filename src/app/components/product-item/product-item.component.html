@@ -1,7 +1,8 @@
 <div class="product-container">
-  <p>{{ name }}</p>
-  <p>{{ price }}</p>
-  <a routerLink="/details/{{ id }}">
-    <img [src]="imageUrl" class="product-image"/>
+  <p>{{ product.name }}</p>
+  <p>{{ product.price }}</p>
+  <a routerLink="/details/{{ product.id }}">
+    <img [src]="product.url" class="product-image"/>
   </a>
+  <button (click)="addToCart()">Add to cart</button>
 </div>
