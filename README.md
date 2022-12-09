@@ -1,6 +1,14 @@
+
 # MyStore Project Overview
 
 MyStore is Angular application that allows users to view a list of available products to purchase, add them to a shopping cart, and ultimately complete the checkout process.
+
+## Run Instructions
+
+* to download project run `git clone https://github.com/drichards188/angular-store.git`
+* navigate to project and run `npm install`
+* to start project run `ng serve`
+* open `http://localhost:4200/` in browser
 
 ## Getting Started
 

@@ -20,8 +20,4 @@ export class ProductListComponent implements OnInit {
       this.productsList = products;
     });
   }
-
-  showHttpProduct(): void {
-    alert(JSON.stringify(this.httpProductList));
-  }
 }
