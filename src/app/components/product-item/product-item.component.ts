@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product} from "../../product";
 import {CartProduct} from "../../cartProduct";
 import {ProductsService} from "../../services/products.service";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-product-item',
@@ -18,7 +19,7 @@ export class ProductItemComponent implements OnInit {
 
   newQuantity: number = 1;
 
-  constructor(private productService: ProductsService) {
+  constructor(private productService: ProductsService, private cartService: CartService) {
   }
 
   ngOnInit(): void {
@@ -29,13 +30,15 @@ export class ProductItemComponent implements OnInit {
   }
 
   addToCart(isUpdate: boolean): void {
-    this.productService.addProduct(this.product, this.newQuantity, isUpdate);
+    this.cartService.addProduct(this.product, this.newQuantity, isUpdate);
     this.signalUpdateEvent.emit(true);
     this.newQuantity = 1;
+    alert('added to cart');
   }
 
   removeFromCart(): void {
-    this.productService.removeProduct(this.product.id);
+    this.cartService.removeProduct(this.product.id);
     this.signalUpdateEvent.emit(true);
+    alert('product removed from cart');
   }
 }
