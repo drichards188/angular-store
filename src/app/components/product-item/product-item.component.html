@@ -1,12 +1,11 @@
 <div class="product-container">
-  <p>{{ product.name }}</p>
-  <p>{{ product.price }}</p>
-  <p *ngIf="isCart">Quantity: {{cartProduct.quantity}}</p>
   <a routerLink="/details/{{ product.id }}">
     <img [src]="product.url" class="product-image"/>
   </a>
-
-  <select  class="select-input" [(ngModel)]="newQuantity">
+  <p>{{ product.name }}</p>
+  <p>{{ product.price }}</p>
+  <p *ngIf="isCart">Quantity: {{cartProduct.quantity}}</p>
+  <select class="select-input" [(ngModel)]="newQuantity">
     <option value=1>Quantity</option>
     <option value=1>1</option>
     <option value=2>2</option>
