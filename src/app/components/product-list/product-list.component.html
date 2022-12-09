@@ -1,3 +1,4 @@
 <div *ngFor="let product of productsList" class="product-container">
   <app-product-item [product]="product" class="product-index"></app-product-item>
 </div>
+<button (click)="showHttpProduct()">show products</button>

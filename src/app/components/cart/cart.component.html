@@ -7,11 +7,11 @@
 
   <form #form="ngForm" (ngSubmit)="onSubmit()" class="cart-panel">
     <p>Full Name</p>
-      <input type="text" name="fullName" required minlength="5" appForbiddenName="username" [(ngModel)]="fullName">
+      <input type="text" name="fullName" required minlength="2" [(ngModel)]="fullName">
     <p>Address</p>
-    <input type="text" name="address" required minlength="10" [(ngModel)]="address">
+    <input type="text" name="address" required minlength="1" [(ngModel)]="address">
     <p>Credit card number</p>
-    <input type="text" name="cardNumber" required minlength="10" [(ngModel)]="cardNumber">
+    <input type="text" name="cardNumber" required minlength="13" [(ngModel)]="cardNumber">
     <button type="submit" [disabled]="form.invalid">Check Out</button>
   </form>
 </div>

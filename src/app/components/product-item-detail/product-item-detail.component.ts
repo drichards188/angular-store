@@ -11,15 +11,18 @@ import {Product} from "../../product";
 export class ProductItemDetailComponent implements OnInit{
   productId: number = 0;
   selectedProduct: Product = {id:0, name: 'placeholder', description:'desc placeholder', price:0, url:''};
+  productsList: Product[] = [{id:0, name: 'placeholder', description:'desc placeholder', price:0, url:''}];
   constructor(private route: ActivatedRoute, private productsService: ProductsService){}
 
   ngOnInit(): void {
     // @ts-ignore
     this.productId = parseInt(this.route.url._value[1]);
 
-    const productsList: Product[] = this.productsService.getProducts();
+    this.productsService.getProducts().subscribe(products => {
+      this.productsList = products;
+    });
 
-    const foundProduct = productsList.find(product => product.id === this.productId)!;
+    const foundProduct = this.productsList.find(product => product.id === this.productId)!;
     if (foundProduct) {
       this.selectedProduct = foundProduct;
     } else {

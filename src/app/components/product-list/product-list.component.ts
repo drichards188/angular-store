@@ -7,13 +7,21 @@ import {Product} from "../../product";
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit{
+export class ProductListComponent implements OnInit {
   productsList: Product[] = [];
+
+  httpProductList: Product[] = [];
 
   constructor(private productsService: ProductsService) {
   }
 
   ngOnInit(): void {
-    this.productsList = this.productsService.getProducts();
+    this.productsService.getProducts().subscribe(products => {
+      this.productsList = products;
+    });
+  }
+
+  showHttpProduct(): void {
+    alert(JSON.stringify(this.httpProductList));
   }
 }
