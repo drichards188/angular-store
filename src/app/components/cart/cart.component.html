@@ -1,21 +1,29 @@
-<div *ngIf="!showConfirmation" class="cart-container">
-  <div *ngFor="let product of cart" class="cart-item-details">
-    <app-product-item (signalUpdateEvent)="getTotal()" [cartProduct]="product" [isCart]="true" class="product-index"></app-product-item>
+<div class="cart-container">
+  <div *ngIf="!showConfirmation" class="cart-item-details">
+    <div *ngIf="cart.length !== 0">
+      <div *ngFor="let product of cart" class="cart-item-details">
+        <app-product-item (signalUpdateEvent)="getTotal()" [cartProduct]="product" [isCart]="true"
+                          class="product-index"></app-product-item>
+      </div>
+    </div>
+    <form *ngIf="cart.length !== 0" #form="ngForm" (ngSubmit)="onSubmit()" class="cart-panel">
+      <p>Full Name</p>
+      <input type="text" name="fullName" required minlength="2" [(ngModel)]="fullName">
+      <p>Address</p>
+      <input type="text" name="address" required minlength="1" [(ngModel)]="address">
+      <p>Credit card number</p>
+      <input type="text" name="cardNumber" required minlength="13" [(ngModel)]="cardNumber">
+      <button type="submit" [disabled]="form.invalid">Check Out</button>
+      <p> Cart total is ${{orderTotal}}</p>
+    </form>
   </div>
 
-  <p> Cart total is ${{orderTotal}}</p>
+  <div *ngIf="cart.length === 0" class="empty-cart-message">
+    <p>Cart is empty</p>
+    <a routerLink="/">Back to product list</a>
+  </div>
 
-  <form #form="ngForm" (ngSubmit)="onSubmit()" class="cart-panel">
-    <p>Full Name</p>
-      <input type="text" name="fullName" required minlength="5" appForbiddenName="username" [(ngModel)]="fullName">
-    <p>Address</p>
-    <input type="text" name="address" required minlength="10" [(ngModel)]="address">
-    <p>Credit card number</p>
-    <input type="text" name="cardNumber" required minlength="10" [(ngModel)]="cardNumber">
-    <button type="submit" [disabled]="form.invalid">Check Out</button>
-  </form>
-</div>
-
-<div *ngIf="showConfirmation" class="confirmation-container">
-  <app-confirmation [fullName]="fullName" [orderTotal]="orderTotal"></app-confirmation>
+  <div *ngIf="showConfirmation" class="confirmation-container">
+    <app-confirmation [fullName]="fullName" [orderTotal]="orderTotal"></app-confirmation>
+  </div>
 </div>
