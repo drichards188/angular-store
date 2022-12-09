@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Product} from "../../product";
 import {CartProduct} from "../../cartProduct";
 import {ProductsService} from "../../services/products.service";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-cart',
@@ -16,21 +17,27 @@ export class CartComponent implements OnInit{
   showConfirmation: boolean = false;
   orderTotal: number = 0;
 
-  constructor(private productsService: ProductsService) {
-    this.orderTotal = productsService.total;
+  constructor(private productsService: ProductsService, private cartService: CartService) {
+    this.orderTotal = cartService.total;
   }
 
   ngOnInit() {
-    this.cart = this.productsService.getCart();
-    this.orderTotal = this.productsService.total;
+    this.cart = this.cartService.getCart();
+    this.orderTotal = this.cartService.total;
   }
 
   onSubmit() {
-    this.productsService.clearCart();
+    this.cartService.clearCart();
     this.showConfirmation = true;
   }
 
   getTotal() {
-    this.orderTotal = this.productsService.total;
+    this.orderTotal = this.cartService.total;
+    this.cart = this.cartService.getCart();
   }
+
+  updatename(arg: string) {
+    this.fullName = arg;
+  }
+
 }

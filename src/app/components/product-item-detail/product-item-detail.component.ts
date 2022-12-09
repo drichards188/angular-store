@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ProductsService} from "../../services/products.service";
 import {Product} from "../../product";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-product-item-detail',
@@ -13,7 +14,7 @@ export class ProductItemDetailComponent implements OnInit{
   productQuantity: number = 0;
   selectedProduct: Product = {id:0, name: 'placeholder', description:'desc placeholder', price:0, url:''};
   productsList: Product[] = [{id:0, name: 'placeholder', description:'desc placeholder', price:0, url:''}];
-  constructor(private route: ActivatedRoute, private productsService: ProductsService){}
+  constructor(private route: ActivatedRoute, private productsService: ProductsService, private cartService: CartService){}
 
   ngOnInit(): void {
     // @ts-ignore
@@ -34,11 +35,13 @@ export class ProductItemDetailComponent implements OnInit{
   }
 
   addToCart(isUpdate: boolean): void {
-    this.productsService.addProduct(this.selectedProduct, this.productQuantity, isUpdate);
+    this.cartService.addProduct(this.selectedProduct, this.productQuantity, isUpdate);
     this.productQuantity = 0;
+    alert('added to cart');
   }
 
   removeFromCart(): void {
-    this.productsService.removeProduct(this.selectedProduct.id);
+    this.cartService.removeProduct(this.selectedProduct.id);
+    alert('removed from cart');
   }
 }

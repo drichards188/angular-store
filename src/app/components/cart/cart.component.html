@@ -8,11 +8,11 @@
     </div>
     <form *ngIf="cart.length !== 0" #form="ngForm" (ngSubmit)="onSubmit()" class="cart-panel">
       <p>Full Name</p>
-      <input type="text" name="fullName" required minlength="2" [(ngModel)]="fullName">
+      <input type="text" name="fullName" required minlength="2" (ngModelChange)="updatename($event)" [(ngModel)]="fullName">
       <p>Address</p>
       <input type="text" name="address" required minlength="1" [(ngModel)]="address">
       <p>Credit card number</p>
-      <input type="text" name="cardNumber" required minlength="13" [(ngModel)]="cardNumber">
+      <input type="text" name="cardNumber" required minlength="13" pattern="[0-9]*" [(ngModel)]="cardNumber">
       <button type="submit" [disabled]="form.invalid">Check Out</button>
       <p> Cart total is ${{orderTotal}}</p>
     </form>
