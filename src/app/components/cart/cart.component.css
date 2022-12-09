@@ -13,12 +13,12 @@ img {
   margin-bottom: 20px;
 }
 
+.cart-supress {
+  max-width: 15%;
+}
+
 .cart-item-details {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: left;
-  margin-left: 80px;
+  display: inline-flex;
 }
 
 .number-input {

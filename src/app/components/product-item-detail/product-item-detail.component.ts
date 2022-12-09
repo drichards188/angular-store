@@ -35,6 +35,7 @@ export class ProductItemDetailComponent implements OnInit{
 
   addToCart(isUpdate: boolean): void {
     this.productsService.addProduct(this.selectedProduct, this.productQuantity, isUpdate);
+    this.productQuantity = 0;
   }
 
   removeFromCart(): void {
